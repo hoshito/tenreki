@@ -15,7 +15,7 @@ app.post('/', (req, res) => {
     access_token_key: req.body.token,
     access_token_secret: req.body.secret
   });
-  client.get('friends/list', {}).then((users) => {
+  client.get('friends/list', {count: 200}).then((users) => {
     res.send(users);
   }).catch((errors) => {
   })
