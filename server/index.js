@@ -12,11 +12,10 @@ app.post('/', (req, res) => {
   var client = new Twitter({
     consumer_key: process.env.CONSUMER_KEY,
     consumer_secret: process.env.CONSUMER_SECRET,
-    access_token_key: process.env.ACCESS_TOKEN_KEY,
-    access_token_secret: process.env.ACCESS_TOKEN_SECRET
+    access_token_key: req.body.token,
+    access_token_secret: req.body.secret
   });
-  var params = {screen_name: 'hoshitostar'};
-  client.get('friends/list', params).then((users) => {
+  client.get('friends/list', {}).then((users) => {
     res.send(users);
   }).catch((errors) => {
   })
