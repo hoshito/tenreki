@@ -1,4 +1,11 @@
 import pkg from './package'
+require('dotenv').config();
+const {
+  CONSUMER_KEY,
+  CONSUMER_SECRET,
+  ACCESS_TOKEN_KEY,
+  ACCESS_TOKEN_SECRET
+} = process.env;
 
 export default {
   mode: 'universal',
@@ -39,6 +46,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
   ],
 
   /*
@@ -49,6 +57,18 @@ export default {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+      config.node = {
+        fs: "empty" // TwitterAPIを使うのに必要
+      };
     }
+  },
+  serverMiddleware: [
+    '~/server'
+  ],
+  env : {
+    CONSUMER_KEY,
+    CONSUMER_SECRET,
+    ACCESS_TOKEN_KEY,
+    ACCESS_TOKEN_SECRET
   }
 }
