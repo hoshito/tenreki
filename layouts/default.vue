@@ -4,9 +4,11 @@
       <div class="nav-wrapper">
         <a href="#" class="brand-logo"><img src="../assets/tenreki_logo.png"></a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <!--
           <li><a href="sass.html"></a></li>
           <li><a href="badges.html"></a></li>
           <li><a href="collapsible.html"></a></li>
+          -->
         </ul>
       </div>
     </nav>
@@ -61,5 +63,13 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+nav {
+  margin-bottom: 20px;
+  background-color: #e9ddc6;
+}
+.brand-logo img {
+  width: 85px;
 }
 </style>
