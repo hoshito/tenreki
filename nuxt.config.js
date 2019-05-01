@@ -21,7 +21,9 @@ export default {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
-      { src: "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" }
+      { src: "https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js" },
+      { src: "https://unpkg.com/popper.js"},
+      { src: "https://unpkg.com/tooltip.js"}
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -44,6 +46,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/calendar.js', ssr: false }
   ],
 
   /*
