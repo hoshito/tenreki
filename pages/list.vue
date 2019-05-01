@@ -6,7 +6,7 @@
         <div class="col s2">
           <div class="switch">
             <label>
-              <input type="checkbox">
+              <input type="checkbox" :val="data.id">
               <span class="lever"></span>
             </label>
           </div>
@@ -26,22 +26,31 @@
     data: function () {
       return {
         title: 'Axios',
-        token: '',
-        secret: '',
+        token: sessionStorage.getItem("token"),
+        secret: sessionStorage.getItem("secret"),
         json_data: {},
       }
     },
     created: function () {
+      if(this.token && this.secret) {
+        this.get();
+      }
     },
     methods: {
       login() {
-        var self = this;
-        var provider = new firebase.auth.TwitterAuthProvider();
-        firebase.auth().signInWithPopup(provider).then(function (result) {
-          self.token = result.credential.accessToken;
-          self.secret = result.credential.secret;
-          self.get();
-        });
+        if(this.token && this.secret) {
+          return false;
+        } else {
+          var self = this;
+          var provider = new firebase.auth.TwitterAuthProvider();
+          firebase.auth().signInWithPopup(provider).then(function (result) {
+            self.token = result.credential.accessToken;
+            self.secret = result.credential.secret;
+            sessionStorage.token = self.token;
+            sessionStorage.secret = self.secret;
+            self.get();
+          });
+        }
       },
       get() {
         var self = this;
