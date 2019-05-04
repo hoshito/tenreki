@@ -1,11 +1,6 @@
 import pkg from './package'
 require('dotenv').config();
-const {
-  CONSUMER_KEY,
-  CONSUMER_SECRET,
-  ACCESS_TOKEN_KEY,
-  ACCESS_TOKEN_SECRET
-} = process.env;
+const {} = process.env;
 
 export default {
   mode: 'spa',
@@ -72,10 +67,14 @@ export default {
   serverMiddleware: [
     '~/server'
   ],
-  env : {
-    CONSUMER_KEY,
-    CONSUMER_SECRET,
-    ACCESS_TOKEN_KEY,
-    ACCESS_TOKEN_SECRET
+  env: {
+  },
+  vue: {
+    config: {
+      url: {
+        tweets: "https://us-central1-tenreki-d1e2f.cloudfunctions.net/tweets"
+      }
+    }
   }
 }
+

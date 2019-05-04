@@ -10,6 +10,7 @@
   import firebase from '~/plugins/firebase'
   import FullCalendar from '@fullcalendar/vue'
   import dayGridPlugin from '@fullcalendar/daygrid'
+  import Vue from 'vue'
 
   const axios = require('axios');
 
@@ -51,7 +52,7 @@
       getTweets(token, secret) {
         const self = this;
         const params = {token: token, secret: secret};
-        axios.post("/api/tweets", params).then(res => {
+        axios.post(Vue.config.url.tweets, params).then(res => {
           self.events = res.data;
         }).catch(err => {
           console.log(err);
