@@ -69,7 +69,10 @@ nav {
   margin-bottom: 20px;
   background-color: #e9ddc6;
 }
+.brand-logo {
+  height: 100%;
+}
 .brand-logo img {
-  width: 85px;
+  height: 100%;
 }
 </style>
