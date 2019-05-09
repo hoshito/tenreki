@@ -65,7 +65,6 @@ export default {
     }
   },
   serverMiddleware: [
-    '~/server'
   ],
   env: {
   },
