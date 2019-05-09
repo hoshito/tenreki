@@ -1,8 +1,8 @@
 <template>
   <section class="container">
+    <button class="login-button" @click="login">Twitter Login</button>
     <FullCalendar defaultView="dayGridMonth" :plugins="calendarPlugins"
                   @eventRender="handleEventRender" :events="events"></FullCalendar>
-    <button @click="login">button</button>
   </section>
 </template>
 
@@ -31,31 +31,34 @@
         const self = this;
         let token = sessionStorage.getItem('token');
         let secret = sessionStorage.getItem('secret');
-        if (token && secret) {
+        let name = sessionStorage.getItem('name');
+        if (token && secret && name) {
           // 認証不要
-          self.getTweets(token, secret);
+          self.getTweets(token, secret, name);
         } else {
           // 認証
           const provider = new firebase.auth.TwitterAuthProvider();
           firebase.auth().signInWithPopup(provider).then(result => {
             let token = result.credential.accessToken;
             let secret = result.credential.secret;
-            self.setSession(token, secret);
-            self.getTweets(token, secret);
+            let name = result.additionalUserInfo.username;
+            self.setSession(token, secret, name);
+            self.getTweets(token, secret, name);
           });
         }
       },
-      setSession(token, secret) {
+      setSession(token, secret, name) {
         sessionStorage.token = token;
         sessionStorage.secret = secret;
+        sessionStorage.name = name;
       },
-      getTweets(token, secret) {
+      getTweets(token, secret, name) {
         const self = this;
-        const params = {token: token, secret: secret};
+        const params = {token: token, secret: secret, name: name};
         axios.post(Vue.config.url.tweets, params).then(res => {
           self.events = res.data;
         }).catch(err => {
-          console.log(err);
+          alert(err);
         });
       },
       handleEventRender(info) {
@@ -185,6 +188,16 @@
     top: calc(50% - 5px);
     margin-left: 0;
     margin-right: 0;
+  }
+
+  .login-button {
+    border: none;
+    border-radius: 5px;
+    background-color: #1DA1F3;
+    color: white;
+    font-size: 12px;
+    padding: 10px;
+    cursor: pointer;
   }
 </style>
 
