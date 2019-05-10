@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <button class="login-button" @click="login">Twitter Login</button>
-    <FullCalendar defaultView="dayGridMonth" :plugins="calendarPlugins"
+    <FullCalendar ref="fullCalendar" defaultView="dayGridMonth" :plugins="calendarPlugins"
                   @eventRender="handleEventRender" :events="events"></FullCalendar>
   </section>
 </template>
@@ -57,6 +57,10 @@
         const params = {token: token, secret: secret, name: name};
         axios.post(Vue.config.url.tweets, params).then(res => {
           self.events = res.data;
+          setTimeout(function() {
+            // 表示が崩れてしまうため再読込
+            self.$refs.fullCalendar.getApi().rerenderEvents();
+          }, 500);
         }).catch(err => {
           alert(err);
         });
